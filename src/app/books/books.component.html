@@ -1,0 +1,100 @@
+<div id="wrapper">
+  <app-sidebar></app-sidebar>
+
+  <div class="content-page">
+    <div class="content">
+      <app-header></app-header>
+
+      <div class="container-fluid">
+        <div class="row mt-2">
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="mb-3 header-title">Add New Book</h4>
+
+                <form [formGroup]="booksForm">
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" formControlName="title">
+                    <span class="help-block text-danger"
+                          *ngIf="!booksForm.get('title').valid && booksForm.get('title').touched"
+                    >
+                      <small *ngIf="booksForm.get('title').errors['required']">This field is required</small>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="author">Author</label>
+                    <input type="text" class="form-control" id="author" formControlName="author">
+                    <span class="help-block text-danger"
+                          *ngIf="!booksForm.get('author').valid && booksForm.get('author').touched"
+                    >
+                      <small *ngIf="booksForm.get('author').errors['required']">This field is required</small>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="isbn">ISBN</label>
+                    <input type="number" class="form-control" id="isbn" formControlName="isbn">
+                    <span class="help-block text-danger"
+                          *ngIf="!booksForm.get('isbn').valid && booksForm.get('isbn').touched"
+                    >
+                      <small *ngIf="booksForm.get('isbn').errors['required']">This field is required</small>
+                    </span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="category">Category</label>
+                    <select class="form-control" id="category" formControlName="category">
+                      <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
+                    </select>
+                    <span class="help-block text-danger"
+                          *ngIf="!booksForm.get('category').valid && booksForm.get('category').touched"
+                    >
+                      <small *ngIf="booksForm.get('category').errors['required']">This field is required</small>
+                    </span>
+                  </div>
+                  <button type="button" class="btn btn-primary" [disabled]="!booksForm.valid" (click)="saveBook()">Submit</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <!-- end col -->
+
+          <div class="col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title">Books List</h4>
+
+                <table class="table table-striped mb-0" id="books_table">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Author's Name</th>
+                    <th>ISBN</th>
+                    <th>Category</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let book of books; let i = index;">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{book.title}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.isbn}}</td>
+                    <td>{{book.category}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
+
